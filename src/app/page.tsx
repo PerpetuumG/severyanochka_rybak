@@ -1,3 +1,9 @@
+import Slider from '@/components/Slider/Slider';
+
 export default function Home() {
-  return <h1>1</h1>;
+  return (
+    <main className={'w-full mx-auto mb-20'}>
+      <Slider />
+    </main>
+  );
 }
