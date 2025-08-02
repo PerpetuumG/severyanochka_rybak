@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import LogoBlock from '@/components/header/LogoBlock';
 import SearchBlock from '@/components/header/SearchBlock';
-import HeaderUserBlock from '@/components/header/HeaderUserBlock';
+import UserBlock from '@/components/header/UserBlock';
 
 const Header: FC = () => {
   return (
     <header
       className={
-        'bg-white w-full md:shadow(--shadow-default) relative z-10 flex flex-col md:flex-row gap-y-5 xl:gap-y-7 md:gap-10 p-2 justify-center'
+        'bg-white w-full md:shadow(--shadow-default) relative z-10 flex flex-col md:flex-row md:gap-y-5 xl:gap-y-7 md:gap-10 md:p-2 justify-center'
       }
     >
       <div
@@ -19,9 +19,7 @@ const Header: FC = () => {
         <SearchBlock />
       </div>
 
-      <nav aria-label={'Основное меню'}>
-        <HeaderUserBlock />
-      </nav>
+      <UserBlock />
     </header>
   );
 };
