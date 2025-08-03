@@ -1,11 +1,16 @@
 import Slider from '@/components/Slider/Slider';
-import ProductCard from '@/components/ProductCard';
+import Actions from '@/components/Actions';
 
 export default function Home() {
   return (
     <main className={'w-full mx-auto mb-20'}>
       <Slider />
-      <ProductCard />
+
+      <div
+        className={'px-[max(12px,calc((100%-1208px)/2))] flex flex-col gap-y-20 md:md-25 xl:mb-30'}
+      >
+        <Actions />
+      </div>
     </main>
   );
 }
