@@ -11,7 +11,7 @@ const ProductCard = ({
   img,
   description,
   basePrice,
-  discountPercent,
+  discountPercent = 0,
   rating,
   categories,
 }: ProductCardProps) => {
@@ -44,7 +44,7 @@ const ProductCard = ({
           src={img}
           alt={'Акции'}
           fill
-          className={'object-cover'}
+          className={'object-contain'}
           sizes={'(max-width:768px) 160px, (max-width: 1200px) 224px, 272px'}
         />
 
