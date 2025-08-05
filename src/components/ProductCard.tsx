@@ -3,6 +3,7 @@ import iconHeart from '/public/icons-header/icon-heart.svg';
 import Image from 'next/image';
 import { ProductCardProps } from '@/types/product';
 import { formatPrice } from '../../utils/formatPrice';
+import StarRating from '@/components/StarRating';
 
 const cardDiscountPercent = 6; //разница по карте и обычной ценой
 
@@ -89,7 +90,7 @@ const ProductCard = ({
           {description}
         </div>
 
-        {rating > 0 && <p>Рейтинг {rating}</p>}
+        {rating > 0 && <StarRating rating={rating} />}
         <button
           className={
             'absolute border bottom-2 left-2 right-2 border-(--color-primary) hover:text-white hover:bg-[#ff6633] hover:border-transparent active:shadow-(--shadow-button-active) h-10 rounded justify-center items-center text-(--color-primary) transition-all duration-300 cursor-pointer select-none'
