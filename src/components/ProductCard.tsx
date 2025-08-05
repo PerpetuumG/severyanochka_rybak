@@ -13,6 +13,7 @@ const ProductCard = ({
   basePrice,
   discountPercent,
   rating,
+  categories,
 }: ProductCardProps) => {
   // финальная цена
   const calculateFinalPrice = (price: number, discount: number): number => {
@@ -24,9 +25,13 @@ const ProductCard = ({
     return calculateFinalPrice(price, discount);
   };
 
-  const finalPrice = calculateFinalPrice(basePrice, discountPercent);
+  const isNewProduct = categories?.includes('new');
 
-  const priceByCard = calculatePriceByCard(finalPrice, cardDiscountPercent);
+  const finalPrice = isNewProduct ? basePrice : calculateFinalPrice(basePrice, discountPercent);
+
+  const priceByCard = isNewProduct
+    ? basePrice
+    : calculatePriceByCard(finalPrice, cardDiscountPercent);
 
   return (
     <div
@@ -66,7 +71,7 @@ const ProductCard = ({
               <span>$</span>
             </div>
 
-            {cardDiscountPercent > 0 && (
+            {discountPercent > 0 && (
               <p className={'text-[#bfbfbf] text-[8px] md:text-xs'}>С картой</p>
             )}
           </div>
