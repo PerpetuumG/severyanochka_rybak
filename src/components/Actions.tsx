@@ -1,11 +1,24 @@
-import React, { FC } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import iconRight from '/public/icons-products/icon-arrow-right.svg';
-import database from '@/data/database.json';
 import ProductCard from '@/components/ProductCard';
+import { ProductCardProps } from '@/types/product';
 
-const Actions: FC = () => {
-  const actionProducts = database.products.filter((p) => p.categories.includes('actions'));
+const Actions = async () => {
+  let products: ProductCardProps[] = [];
+  let error = null;
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/api/products?category=actions`);
+    products = await res.json();
+  } catch (e) {
+    console.error('Ошибка при загрузке акционных товаров в Actions: ', e);
+    error = 'Ошибка получения акционных товаров';
+  }
+
+  if (error) {
+    return <div className={'text-red-500'}>Ошибка: {error}</div>;
+  }
 
   return (
     <section>
@@ -24,9 +37,9 @@ const Actions: FC = () => {
             'grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 justify-items-center'
           }
         >
-          {actionProducts.slice(0, 4).map((item, index) => (
+          {products.slice(0, 4).map((item, index) => (
             <li
-              key={item.id}
+              key={item._id}
               className={`${index >= 4 ? 'hidden' : ''} ${index >= 3 ? 'md:hidden xl:block' : ''} ${index >= 4 ? 'xl:hidden' : ''}`}
             >
               <ProductCard {...item} />
