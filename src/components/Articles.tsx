@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
 import iconRight from '../../public/icons-header/icon-arrow-right.svg';
-import articlesDatabase from '@/data/articlesDatabase.json';
+import articlesDatabase from '../../migrations/articlesDatabase.json';
 import Link from 'next/link';
 
 const Articles: FC = () => {
