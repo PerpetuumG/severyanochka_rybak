@@ -1,11 +1,24 @@
-import React, { FC } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import iconRight from '../../public/icons-header/icon-arrow-right.svg';
-import articlesDatabase from '../../migrations/articlesDatabase.json';
 import Link from 'next/link';
+import { Article } from '@/types/articles';
 
-const Articles: FC = () => {
-  const articles = articlesDatabase;
+const Articles = async () => {
+  let articles: Article[] = [];
+  let error = null;
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/api/articles`);
+    articles = await res.json();
+  } catch (e) {
+    console.error('Ошибка при загрузке статей в компоненте Articles: ', e);
+    error = 'Ошибка получения статей';
+  }
+
+  if (error) {
+    return <div className={'text-red-500'}>Ошибка: {error}</div>;
+  }
 
   return (
     <section>
@@ -23,7 +36,7 @@ const Articles: FC = () => {
         {/* Список статей */}
         <ul className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6'>
           {articles.map((article) => (
-            <li key={article.id} className='h-75 md:h-105'>
+            <li key={article._id} className='h-75 md:h-105'>
               <article className='bg-white h-full flex flex-col rounded overflow-hidden shadow-(--shadow-card) hover:shadow-(--shadow-article) duration-300'>
                 <div className='relative h-48 w-full'>
                   <Image
