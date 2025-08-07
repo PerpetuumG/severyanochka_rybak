@@ -1,8 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
-import iconRight from '/public/icons-products/icon-arrow-right.svg';
 import ProductCard from '@/components/ProductCard';
 import { ProductCardProps } from '@/types/product';
+import { shuffleArray } from '../../utils/shuffleArray';
+import ViewAllButton from '@/components/ViewAllButton';
 
 const Actions = async () => {
   let products: ProductCardProps[] = [];
@@ -11,6 +11,8 @@ const Actions = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/api/products?category=actions`);
     products = await res.json();
+
+    products = shuffleArray(products);
   } catch (e) {
     console.error('Ошибка при загрузке акционных товаров в Actions: ', e);
     error = 'Ошибка получения акционных товаров';
@@ -25,12 +27,8 @@ const Actions = async () => {
       <div className={'flex flex-col justify-center xl:max-w-[1208px]'}>
         <div className={'mb-4 md:mb-8 xl:mb-10 flex flex-row justify-between'}>
           <h2 className={'text-2xl xl:text-4xl text-left font-bold text-[#414141]'}>Акции</h2>
-          <button className={'flex flex-row items-center gap-x-2 cursor-pointer'}>
-            <p className={'text-base text-center text-[#606060] hover:text-[#bfbfbf] duration-300'}>
-              Все акции
-            </p>
-            <Image src={iconRight} alt={'К акциям'} width={24} height={24} sizes={'24px'} />
-          </button>
+
+          <ViewAllButton btnText={'Все акции'} href={'actions'} />
         </div>
         <ul
           className={

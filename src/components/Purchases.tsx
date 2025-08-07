@@ -1,10 +1,9 @@
-import React, { FC } from 'react';
+import React from 'react';
 import database from '@/data/database.json';
-import Image from 'next/image';
-import iconRight from '/public/icons-products/icon-arrow-right.svg';
 import ProductCard from '@/components/ProductCard';
+import ViewAllButton from '@/components/ViewAllButton';
 
-const Purchases: FC = () => {
+const Purchases = async () => {
   // Получаем покупки пользователя из базы данных
   const userPurchases = database.users[0].purchases
     .map((purchases) => {
@@ -26,12 +25,8 @@ const Purchases: FC = () => {
           <h2 className={'text-2xl xl:text-4xl text-left font-bold text-[#414141]'}>
             Покупали раньше
           </h2>
-          <button className={'flex flex-row items-center gap-x-2 cursor-pointer'}>
-            <p className={'text-base text-center text-[#606060] hover:text-[#bfbfbf] duration-300'}>
-              Все покупки
-            </p>
-            <Image src={iconRight} alt={'К новинкам'} width={24} height={24} sizes={'24px'} />
-          </button>
+
+          <ViewAllButton btnText={'Все покупки'} href={'purchases'} />
         </div>
         <ul
           className={

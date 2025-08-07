@@ -1,4 +1,4 @@
-import Slider from '@/components/Slider/Slider';
+import Slider from '@/components/slider/Slider';
 import Actions from '@/components/Actions';
 import NewProducts from '@/components/NewProducts';
 import Purchases from '@/components/Purchases';
