@@ -1,11 +1,24 @@
-import React, { FC } from 'react';
-import database from '@/data/database.json';
+import React from 'react';
 import Image from 'next/image';
 import iconRight from '/public/icons-products/icon-arrow-right.svg';
 import ProductCard from '@/components/ProductCard';
+import { ProductCardProps } from '@/types/product';
 
-const NewProducts: FC = () => {
-  const newProducts = database.products?.filter((p) => p.categories?.includes('new'));
+const NewProducts = async () => {
+  let products: ProductCardProps[] = [];
+  let error = null;
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/api/products?category=new`);
+    products = await res.json();
+  } catch (e) {
+    console.error('Ошибка получения новых товаров в NewProducts: ', e);
+    error = 'Ошибка получения новых товаров';
+  }
+
+  if (error) {
+    return <div className={'text-red-500'}>Ошибка: {error}</div>;
+  }
 
   return (
     <section>
@@ -24,9 +37,9 @@ const NewProducts: FC = () => {
             'grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 justify-items-center'
           }
         >
-          {newProducts.slice(0, 4).map((item, index) => (
+          {products.slice(0, 4).map((item, index) => (
             <li
-              key={item.id}
+              key={item._id}
               className={`${index >= 4 ? 'hidden' : ''} ${index >= 3 ? 'md:hidden xl:block' : ''} ${index >= 4 ? 'xl:hidden' : ''}`}
             >
               <ProductCard {...item} />
