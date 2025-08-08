@@ -1,16 +1,13 @@
-import React, { FC } from 'react';
-
-const StarRating: FC = ({ rating }: { rating: number }) => {
+const StarRating = ({ rating }: { rating: number }) => {
   const stars = [];
   const totalStars = 5;
 
   for (let i = 1; i <= totalStars; i++) {
-    // Заполненность звезды в зависимости от рейтинга
     const fillAmount = Math.max(0, Math.min(1, rating - (i - 1)));
     const fillPercentage = Math.round(fillAmount * 100);
 
     stars.push(
-      <div key={i} className={'relative w-[12.92px] h-[12.39px]'}>
+      <div key={i} className='relative w-[12.92px] h-[12.39px]'>
         <svg width='12.921875' height='12.386719' viewBox='0 0 12.9219 12.3867'>
           <path
             id='Star 1'
@@ -40,7 +37,7 @@ const StarRating: FC = ({ rating }: { rating: number }) => {
     );
   }
 
-  return <div className={'flex flex-row gap-1'}>{stars}</div>;
+  return <div className='flex flex-row gap-1'>{stars}</div>;
 };
 
 export default StarRating;

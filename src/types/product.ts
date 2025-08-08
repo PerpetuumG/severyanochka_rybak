@@ -6,8 +6,13 @@ export interface ProductCardProps {
   description: string;
   basePrice: number;
   discountPercent?: number;
-  rating: number;
-  categories: string[];
+  rating: {
+    rate: number;
+    count: number;
+  };
+  tags: string[];
   weight?: string;
-  volume?: string;
+  quantity?: number;
+
+  categories: string[];
 }
