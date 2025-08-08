@@ -1,21 +1,21 @@
 import React from 'react';
 import ProductCard from '@/components/ProductCard';
 import { ProductCardProps } from '@/types/product';
-import { shuffleArray } from '../../../utils/shuffleArray';
+import { shuffleArray } from '../../../../utils/shuffleArray';
 import ViewAllButton from '@/components/ViewAllButton';
 
-const AllActions = async () => {
+const AllNew = async () => {
   let products: ProductCardProps[] = [];
   let error = null;
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/api/products?category=actions`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL!}/api/products?category=new`);
     products = await res.json();
 
     products = shuffleArray(products);
   } catch (e) {
-    console.error('Ошибка при загрузке акционных товаров в AllActions: ', e);
-    error = 'Ошибка получения всех акционных продуктов';
+    console.error('Ошибка получения всех новых товаров в NewProducts: ', e);
+    error = 'Ошибка получения всех новых товаров';
   }
 
   if (error) {
@@ -26,7 +26,7 @@ const AllActions = async () => {
     <section>
       <div className={'px-[max(12px,calc((100%-1208px)/2))] flex flex-col mt-20'}>
         <div className={'mb-4 md:mb-8 xl:mb-10 flex flex-row justify-between'}>
-          <h2 className={'text-2xl xl:text-4xl text-left font-bold text-[#414141]'}>Все акции</h2>
+          <h2 className={'text-2xl xl:text-4xl text-left font-bold text-[#414141]'}>Все новинки</h2>
 
           <ViewAllButton btnText={'Главная'} href={'/'} />
         </div>
@@ -46,4 +46,4 @@ const AllActions = async () => {
   );
 };
 
-export default AllActions;
+export default AllNew;

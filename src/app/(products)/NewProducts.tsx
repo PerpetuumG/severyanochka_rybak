@@ -4,7 +4,7 @@ import { ProductCardProps } from '@/types/product';
 import { shuffleArray } from '../../../utils/shuffleArray';
 import ViewAllButton from '@/components/ViewAllButton';
 
-const AllNew = async () => {
+const NewProducts = async () => {
   let products: ProductCardProps[] = [];
   let error = null;
 
@@ -14,8 +14,8 @@ const AllNew = async () => {
 
     products = shuffleArray(products);
   } catch (e) {
-    console.error('Ошибка получения всех новых товаров в NewProducts: ', e);
-    error = 'Ошибка получения всех новых товаров';
+    console.error('Ошибка получения новых товаров в NewProducts: ', e);
+    error = 'Ошибка получения новых товаров';
   }
 
   if (error) {
@@ -24,19 +24,22 @@ const AllNew = async () => {
 
   return (
     <section>
-      <div className={'px-[max(12px,calc((100%-1208px)/2))] flex flex-col mt-20'}>
+      <div className={'flex flex-col justify-center xl:max-w-[1208px]'}>
         <div className={'mb-4 md:mb-8 xl:mb-10 flex flex-row justify-between'}>
-          <h2 className={'text-2xl xl:text-4xl text-left font-bold text-[#414141]'}>Все новинки</h2>
+          <h2 className={'text-2xl xl:text-4xl text-left font-bold text-[#414141]'}>Новинки</h2>
 
-          <ViewAllButton btnText={'Главная'} href={'/'} />
+          <ViewAllButton btnText={'Все новинки'} href={'new'} />
         </div>
         <ul
           className={
             'grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 xl:gap-10 justify-items-center'
           }
         >
-          {products.map((item) => (
-            <li key={item._id}>
+          {products.slice(0, 4).map((item, index) => (
+            <li
+              key={item._id}
+              className={`${index >= 4 ? 'hidden' : ''} ${index >= 3 ? 'md:hidden xl:block' : ''} ${index >= 4 ? 'xl:hidden' : ''}`}
+            >
               <ProductCard {...item} />
             </li>
           ))}
@@ -46,4 +49,4 @@ const AllNew = async () => {
   );
 };
 
-export default AllNew;
+export default NewProducts;

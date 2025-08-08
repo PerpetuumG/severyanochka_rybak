@@ -9,5 +9,6 @@ module.exports = {
 
   // async down(db, client) {
   //   // TODO write the statements to rollback your migration (if possible)
-  // },
+  //
+  // }
 };
