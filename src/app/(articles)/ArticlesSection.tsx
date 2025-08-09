@@ -1,21 +1,38 @@
 import React from 'react';
 import ViewAllButton from '@/components/ViewAllButton';
 import ArticleCard from '@/app/(articles)/ArticleCard';
+import { ArticlesSectionProps } from '@/types/articlesSection';
 
-const ArticlesSection = ({ title, viewAllButton, articles, compact = false }) => {
+const ArticlesSection = ({
+  title,
+  viewAllButton,
+  articles,
+  compact = false,
+}: ArticlesSectionProps) => {
   return (
     <section>
-      <div className='flex flex-col justify-center xl:max-w-[1208px] text-[#414141]'>
+      <div
+        className={`flex flex-col text-[#414141] ${!compact ? 'px-[max(12px,calc((100%-1208px)/2))] mt-20' : ''}`}
+      >
         <div className='mb-4 md:mb-8 xl:mb-10 flex flex-row justify-between'>
-          <h2 className='text-2xl xl:text-4xl text-left font-bold'>Статьи</h2>
+          <h2 className='text-2xl xl:text-4xl text-left font-bold'>{title}</h2>
 
-          <ViewAllButton btnText={'Все статьи'} href={'articles'} />
+          <ViewAllButton btnText={viewAllButton.text} href={viewAllButton.href} />
         </div>
 
         {/* Список статей */}
         <ul className='grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6'>
-          {articles.map((article) => (
-            <li key={article._id} className='h-75 md:h-105'>
+          {articles.map((article, index) => (
+            <li
+              key={article._id}
+              className={`h-75 md:h-105 ${
+                compact
+                  ? `${index >= 4 ? 'hidden' : ''}
+                ${index >= 3 ? 'md:hidden xl:block' : ''}
+                ${index >= 4 ? 'xl:hidden' : ''}`
+                  : ''
+              }`}
+            >
               <ArticleCard {...article} />
             </li>
           ))}
