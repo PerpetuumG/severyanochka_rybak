@@ -2,6 +2,11 @@ import React from 'react';
 import ProductsSection from '@/components/ProductsSection';
 import fetchPurchases from '../fetchPurchases';
 
+export const metadata = {
+  title: 'Покупки в магазине "Северяночка"',
+  description: 'покупки в магазине "Северяночка"',
+};
+
 const AllPurchases = async () => {
   try {
     const purchases = await fetchPurchases();

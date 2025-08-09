@@ -2,6 +2,11 @@ import React from 'react';
 import fetchProductsByCategory from '@/app/(products)/fetchProducts';
 import ProductsSection from '@/components/ProductsSection';
 
+export const metadata = {
+  title: 'Новинки магазина "Северяночка"',
+  description: 'Новинки магазина "Северяночка"',
+};
+
 const AllNew = async () => {
   try {
     const products = await fetchProductsByCategory('new');

@@ -12,7 +12,7 @@ export interface ProductCardProps {
   };
   tags: string[];
   weight?: string;
-  quantity?: number;
+  quantity: number;
 
   categories: string[];
 }
