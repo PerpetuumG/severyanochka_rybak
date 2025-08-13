@@ -1,6 +1,7 @@
 import React from 'react';
 import fetchProductsByCategory from '@/app/(products)/fetchProducts';
 import ProductsSection from '@/components/ProductsSection';
+import { shuffleArray } from '../../../utils/shuffleArray';
 
 export const metadata = {
   title: 'Акции магазина "Северяночка"',
@@ -9,7 +10,9 @@ export const metadata = {
 
 const Actions = async () => {
   try {
-    const products = await fetchProductsByCategory('actions');
+    let products = await fetchProductsByCategory('actions');
+    products = shuffleArray(products);
+
     return (
       <ProductsSection
         title={'Акции'}
